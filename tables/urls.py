@@ -7,6 +7,8 @@ from .views import (
     logout_view
 )
 
+app_name = 'tables'
+
 urlpatterns = [
     path('', home, name='home'),
     path('addtasks/', views.insert_tasks , name='add_tasks'),

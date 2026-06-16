@@ -5,17 +5,13 @@ from .models import Task
 from .forms import TasksForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
 from .forms import RegisterForm
 # Create your views here.
 
-
-
-
 def home(request):
-    return HttpResponse("Welcome to Todo Application")
+    return render(request, 'home.html')
 
-#@login_required
+@login_required
 def insert_tasks(request):
     """allows user to add tasks"""
     if request.method == 'POST':
@@ -24,17 +20,16 @@ def insert_tasks(request):
             task = form.save(commit=False)  
             task.user = request.user        
             task.save()
-            return redirect('home')
+            return redirect('tables:all_tasks')
     else:
         form = TasksForm()
     return render(request, "tables/add_tasks.html", {'form': form})
 
-#@login_required
+@login_required
 def all_tasks(request):
     """display all tasks of user"""
     tasks = Task.objects.filter(user=request.user)  # get only this user's tasks
     return render(request, "tables/list_tasks.html", {'tasks': tasks})
-   
 
 
 def register_view(request):
@@ -48,7 +43,7 @@ def register_view(request):
 
             login(request, user)
 
-            return redirect('home')
+            return redirect('tables:home')
 
     else:
         form = RegisterForm()
@@ -68,7 +63,7 @@ def login_view(request):
 
             login(request, user)
 
-            return redirect('home')
+            return redirect('tables:home')
 
     else:
         form = AuthenticationForm()
@@ -80,4 +75,4 @@ def logout_view(request):
 
     logout(request)
 
-    return redirect('login')
+    return redirect('tables:login')

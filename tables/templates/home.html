@@ -10,20 +10,21 @@
 {% if user.is_authenticated %}
 
     <h3>Welcome {{ user.username }}</h3>
+    <a href="{% url 'tables:all_tasks' %}">My Tasks</a>
 
-    <a href="{% url 'logout' %}">
+    <a href="{% url 'tables:logout' %}">
         Logout
     </a>
 
 {% else %}
 
-    <a href="{% url 'login' %}">
+    <a href="{% url 'tables:login' %}">
         Login
     </a>
 
     <br><br>
 
-    <a href="{% url 'register' %}">
+    <a href="{% url 'tables:register' %}">
         Register
     </a>
 
