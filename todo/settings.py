@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-z4!g(wh+24%z@7xs&fz9ed+59146q$u!1+5^la^^3f8&k5*t6@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['todo-list-theta-eight-39.vercel.app', '.vercel.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
