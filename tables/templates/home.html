@@ -14,22 +14,34 @@
 
             <div class="card-body">
 
+                <h5 class="mb-1">
+                    {{ task.title }}
+                </h5>
 
-                <h5>{{ task.title }}</h5>
+                <small class="text-muted">
+                    Priority: {{ task.priority }}
+                    {% if task.due_date %}
+                        | Due: {{ task.due_date }}
+                    {% endif %}
+                </small>
 
-                {% if task.completed %}
+                <div class="mt-2">
 
-                    <span class="badge bg-success">
-                        Completed
-                    </span>
+                    {% if task.completed %}
 
-                {% else %}
+                        <span class="badge bg-success">
+                            Completed
+                        </span>
 
-                    <span class="badge bg-warning text-dark">
-                        Pending
-                    </span>
+                    {% else %}
 
-                {% endif %}
+                        <span class="badge bg-warning text-dark">
+                            Pending
+                        </span>
+
+                    {% endif %}
+
+                </div>
 
                 <div class="mt-3">
 
