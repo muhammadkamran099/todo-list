@@ -5,36 +5,46 @@ from .models import Task
 from .forms import TasksForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
-
 from .forms import RegisterForm
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 
-
-
+@login_required
 def home(request):
-    return HttpResponse("Welcome to Todo Application")
 
-#@login_required
+    tasks = Task.objects.filter(
+        user=request.user
+    )
+
+    return render(
+        request,
+        'home.html',
+        {'tasks': tasks}
+    )
+
+@login_required
 def insert_tasks(request):
-    """allows user to add tasks"""
+
     if request.method == 'POST':
         form = TasksForm(request.POST)
+
         if form.is_valid():
-            task = form.save(commit=False)  
-            task.user = request.user        
+            task = form.save(commit=False)
+            task.user = request.user
             task.save()
-            return redirect('home')
+
+            return redirect('all_tasks')
+
     else:
         form = TasksForm()
+
     return render(request, "tables/add_tasks.html", {'form': form})
 
-#@login_required
+@login_required
 def all_tasks(request):
-    """display all tasks of user"""
-    tasks = Task.objects.filter(user=request.user)  # get only this user's tasks
+    tasks = Task.objects.filter(user=request.user)
     return render(request, "tables/list_tasks.html", {'tasks': tasks})
-   
 
 
 def register_view(request):
@@ -81,3 +91,27 @@ def logout_view(request):
     logout(request)
 
     return redirect('login')
+
+@login_required
+def delete_task(request, id):
+
+    task = Task.objects.get(id=id)
+
+    task.delete()
+
+    return redirect('all_tasks')
+
+@login_required
+def toggle_task(request, pk):
+
+    task = get_object_or_404(
+        Task,
+        id=pk,
+        user=request.user
+    )
+
+    task.completed = not task.completed
+
+    task.save()
+
+    return redirect('home')

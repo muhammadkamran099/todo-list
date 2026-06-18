@@ -1,17 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Tasks</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
     <h2>Your Tasks</h2>
 
-{% for task in tasks %}
-    <p>{{ task.title }} - {{ task.completed }}</p>
-{% empty %}
-    <p>No tasks found</p>
-{% endfor %}
-</body>
-</html>
+    {% for task in tasks %}
+
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+
+                <h5>{{ task.title }}</h5>
+
+                {% if task.completed %}
+                    <span class="badge bg-success">Completed</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                {% endif %}
+
+                <a href="{% url 'delete_task' task.id %}"
+                   class="btn btn-danger btn-sm float-end">
+                    Delete
+                </a>
+
+            </div>
+        </div>
+
+    {% empty %}
+
+        <div class="alert alert-info">
+            No tasks found.
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
