@@ -83,9 +83,8 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_ENGINE", "django_libsql"),
-        "NAME": os.environ.get("DB_NAME"),
-        "AUTH_TOKEN": os.environ.get("DB_AUTH_TOKEN"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "/tmp/db.sqlite3",
     }
 }
 
