@@ -1,11 +1,5 @@
 #!/bin/bash
 
-pip install -r requirements.txt
-
-echo "Running migrations..."
-python manage.py migrate --noinput
-
-echo "Collecting static files..."
-python manage.py collectstatic --noinput --clear
-
-echo "Done!"
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic --noinput
