@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-z4!g(wh+24%z@7xs&fz9ed+59146q$u!1+5^la^^3f8&k5*t6@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['todo-list-theta-eight-39.vercel.app', '.vercel.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [
+    '.vercel.app',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -125,3 +129,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 LOGIN_URL = 'login'
+
+import os
+
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY",
+    "django-insecure-local-key"
+)
+
+DEBUG = os.environ.get("DEBUG", "False") == "True"
