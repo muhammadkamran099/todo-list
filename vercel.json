@@ -3,11 +3,7 @@
   "builds": [
     {
       "src": "todo/wsgi.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.12"
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
@@ -15,6 +11,5 @@
       "src": "/(.*)",
       "dest": "todo/wsgi.py"
     }
-  ],
-  "buildCommand": "bash build_files.sh"
+  ]
 }
