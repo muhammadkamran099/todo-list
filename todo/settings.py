@@ -1,18 +1,9 @@
-```python
-"""
-Django settings for todo project.
-"""
-
 from pathlib import Path
 import os
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =====================================================
-# SECURITY
-# =====================================================
-
+# Security
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
     "django-insecure-z4!g(wh+24%z@7xs&fz9ed+59146q$u!1+5^la^^3f8&k5*t6@"
@@ -26,10 +17,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-# =====================================================
-# APPLICATIONS
-# =====================================================
-
+# Applications
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,12 +28,10 @@ INSTALLED_APPS = [
     'tables',
 ]
 
-# =====================================================
-# MIDDLEWARE
-# =====================================================
-
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,10 +41,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'todo.urls'
-
-# =====================================================
-# TEMPLATES
-# =====================================================
 
 TEMPLATES = [
     {
@@ -77,11 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'todo.wsgi.application'
 
-# =====================================================
-# DATABASE
-# =====================================================
-
-# Local SQLite (when running on your computer)
+# Database
 if not os.getenv("VERCEL"):
     DATABASES = {
         'default': {
@@ -89,8 +67,6 @@ if not os.getenv("VERCEL"):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
-# Production Turso (when running on Vercel)
 else:
     DATABASES = {
         "default": {
@@ -100,10 +76,7 @@ else:
         }
     }
 
-# =====================================================
-# PASSWORD VALIDATION
-# =====================================================
-
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -119,39 +92,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# =====================================================
-# INTERNATIONALIZATION
-# =====================================================
-
+# Internationalization
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
 USE_TZ = True
 
-# =====================================================
-# STATIC FILES
-# =====================================================
-
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    ...
-]
-# =====================================================
-# LOGIN SETTINGS
-# =====================================================
+# Static files
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 LOGIN_URL = 'login'
 
-# =====================================================
-# DEFAULT PRIMARY KEY
-# =====================================================
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-```
