@@ -135,9 +135,14 @@ USE_TZ = True
 # STATIC FILES
 # =====================================================
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    ...
+]
 # =====================================================
 # LOGIN SETTINGS
 # =====================================================
