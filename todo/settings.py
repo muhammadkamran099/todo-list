@@ -11,7 +11,11 @@ SECRET_KEY = os.getenv(
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    ".vercel.app",
+    "localhost",
+    "127.0.0.1",
+]
 
 # Applications
 INSTALLED_APPS = [
@@ -56,21 +60,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'todo.wsgi.application'
 
 # Database
-if not os.getenv("VERCEL"):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("DB_ENGINE"),
+        "NAME": os.getenv("DB_NAME"),
+        "AUTH_TOKEN": os.getenv("DB_AUTH_TOKEN"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": os.getenv("DB_ENGINE"),
-            "NAME": os.getenv("DB_NAME"),
-            "AUTH_TOKEN": os.getenv("DB_AUTH_TOKEN"),
-        }
-    }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
