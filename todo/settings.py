@@ -60,13 +60,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'todo.wsgi.application'
 
 # Database
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE"),
-        "NAME": os.getenv("DB_NAME"),
-        "AUTH_TOKEN": os.getenv("DB_AUTH_TOKEN"),
+if not os.getenv("VERCEL"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("DB_ENGINE"),
+            "NAME": os.getenv("DB_NAME"),
+            "AUTH_TOKEN": os.getenv("DB_AUTH_TOKEN"),
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
